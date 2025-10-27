@@ -37,6 +37,11 @@ Aplicación web que permite a administradores de tiendas en línea subir imágen
 - Ejecuta el backend: \`uvicorn backend.app.main:app --reload\`
 - Abre frontend/index.html en un navegador.
 
+### Entrenamiento del Modelo
+- Con venv activo: `cd model && python train.py`
+- Genera `saved_model/ecommerce_classifier/` y `training_history.png`.
+- Espera ~5-10 min en CPU (precisión esperada: ~90%+).
+
 ## Estructura del Proyecto
 - /backend: API y lógica de negocio.
 - /frontend: Interfaz de usuario.
