@@ -37,6 +37,32 @@ Aplicación web que permite a administradores de tiendas en línea subir imágen
 - Ejecuta el backend: \`uvicorn backend.app.main:app --reload\`
 - Abre frontend/index.html en un navegador.
 
+### Frontend
+- Abre http://localhost:8000/frontend/index.html.
+- Sube imagen, ve predicción (categoría, confianza, ID, imagen).
+- Lista de productos con imágenes y fechas.
+
+### Endpoints API
+- POST /predict/upload: Sube imagen, predice, guarda (multipart/form-data, file).
+- GET /predict/{id}: Producto por ID.
+- GET /predict/products: Lista todos.
+- DELETE /predict/{id}: Elimina producto (opcional).
+
+### Despliegue Local
+- venv activo: `python backend/run.py`.
+- Frontend: http://localhost:8000/frontend/index.html.
+- API: http://localhost:8000/docs (Swagger).
+
+### Despliegue Cloud Opcional
+- **Backend (Heroku):** Instala CLI (`npm i -g heroku`), `heroku create ecommerce-classifier-api`, `git push heroku main`, set env vars (`heroku config:set DB_URL=sqlite:///app.db MODEL_PATH=model/saved_model/ecommerce_classifier.keras`).
+- **Frontend (Vercel):** `npm i -g vercel`, cd frontend, `vercel` (set API_BASE = 'https://tu-app.herokuapp.com/predict').
+- **DB Prod:** Cambia .env a MySQL (DB_URL=mysql://user:pass@localhost/db), rerun Alembic (`alembic upgrade head`).
+
+### Pruebas End-to-End
+- Sube imagen en frontend → Predicción (e.g., zapato → "Sneaker" ~90%).
+- Lista actualiza con imagen visible.
+- DELETE ID 1: curl -X DELETE http://localhost:8000/predict/1.
+
 ### Entrenamiento del Modelo
 - Con venv activo: `cd model && python train.py`
 - Genera `saved_model/ecommerce_classifier/` y `training_history.png`.
